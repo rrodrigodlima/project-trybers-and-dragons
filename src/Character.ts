@@ -57,10 +57,11 @@ export default class Character implements Fighter {
   }
 
   public receiveDamage(attackPoints: number): number {
-    this._lifePoints = (this._lifePoints - (attackPoints - this._defense)) > 0 
-      ? (this._lifePoints - (attackPoints - this._defense)) 
-      : -1;
-    return this._lifePoints;
+    const damage = attackPoints - this._defense;
+    this._lifePoints = damage > 0
+      ? (this._lifePoints - damage)
+      : (this._lifePoints - 1);
+    return this._lifePoints > 0 ? this._lifePoints : -1;
   }
 
   public attack(enemy: Fighter | SimpleFighter): void {
